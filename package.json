@@ -1,0 +1,57 @@
+{
+  "name": "unqiue-character-remover",
+  "version": "0.0.1",
+  "description": "",
+  "main": "build/unique.js",
+  "scripts": {
+    "commit": "git-cz",
+    "cz": "git-cz"
+  },
+  "keywords": [],
+  "author": "yoon4027",
+  "license": "ISC",
+  "dependencies": {
+    "@sapphire/decorators": "^4.3.4",
+    "@sapphire/discord.js-utilities": "^4.11.0",
+    "@sapphire/framework": "3.0.0-next.4cada3b.0",
+    "@sapphire/pieces": "^3.3.3",
+    "@sapphire/plugin-api": "^3.2.1",
+    "@sapphire/plugin-editable-commands": "^1.2.0",
+    "@sapphire/plugin-logger": "^2.2.1",
+    "@sapphire/time-utilities": "^1.7.4",
+    "@sapphire/type": "^2.2.4",
+    "@sapphire/utilities": "^3.6.2",
+    "@sentry/integrations": "^6.19.7",
+    "@sentry/node": "^6.19.7",
+    "@skyra/env-utilities": "^1.0.0",
+    "axios": "^0.27.2",
+    "common-tags": "^1.8.2",
+    "confusables": "^1.1.0",
+    "discord.js": "^13.7.0",
+    "dot-prop": "6.0.1",
+    "ioredis": "^5.0.5"
+  },
+  "devDependencies": {
+    "@prisma/client": "^3.14.0",
+    "@sapphire/ts-config": "^3.3.4",
+    "@types/common-tags": "^1.8.1",
+    "@types/node": "^17.0.35",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "prisma": "^3.14.0",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "paths": {
+    "#lib": "./build/lib/*.js",
+    "#lib/structures": "./build/lib/structures/index.js",
+    "#lib/db": "./build/lib/db/index.js",
+    "#root": "./build/*.js"
+  },
+  "packageManager": "pnpm@7.1.6"
+}

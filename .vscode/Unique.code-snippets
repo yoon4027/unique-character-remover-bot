@@ -1,0 +1,25 @@
+/** References are from: https://github.com/skyra-project/skyra/blob/main/.vscode/Skyra.code-snippets*/
+
+{
+  "UniqueCommand": {
+    "scope": "typescript",
+    "prefix": "command",
+    "body": [
+      "import { UniuqeCommand } from '#lib/structures';",
+      "import { ApplyOptions } from '@sapphire/decorators';",
+      "import type { Message } from 'discord.js';",
+      "",
+      "@ApplyOptions<UniuqeCommand.Options>({",
+      "\tcooldown: 10,",
+      "\tpermissions: [$2],",
+      "})",
+      "export class UserCommand extends SkyraCommand {",
+      "\tpublic async messageRun(message: Message, args: SkyraCommand.Args) {",
+      "\t\treturn $3;",
+      "\t}",
+      "}",
+      ""
+    ],
+    "description": "Creates a UniqueCommand"
+  }
+}

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS "Settings" ("id" TEXT NOT NULL, "data" TEXT NOT NULL);
