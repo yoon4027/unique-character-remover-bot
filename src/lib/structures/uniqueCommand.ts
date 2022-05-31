@@ -1,6 +1,15 @@
 import { OWNERS } from "#root/config";
-import { Command, CommandOptionsRunTypeEnum } from "@sapphire/framework";
+import {
+  AliasPiece,
+  ApplicationCommandRegistry,
+  Command,
+  CommandJSON,
+  CommandOptions,
+  CommandOptionsRunType,
+  CommandOptionsRunTypeEnum,
+} from "@sapphire/framework";
 import { envParseString } from "@skyra/env-utilities";
+import type { CacheType, CommandInteraction } from "discord.js";
 import { sep } from "path";
 
 export class UniqueCommand extends Command {
@@ -16,12 +25,14 @@ export class UniqueCommand extends Command {
         guildIds:
           process.env.NODE_ENV === "development"
             ? [envParseString("TEST_GUILD")]
-            : [],
+            : undefined,
         register: true,
         ...options.chatInputCommand,
       },
       ...options,
     });
+
+    console.log(options.chatInputCommand);
   }
 
   public get category(): string {
@@ -30,10 +41,11 @@ export class UniqueCommand extends Command {
 }
 
 export declare namespace UniqueCommand {
-  type Options = Command.Options;
-  type JSON = Command.JSON;
-  type Context = Command.Context;
-  type AutocompleteInteraction = Command.AutocompleteInteraction;
-  type ContextMenuInteraction = Command.ContextMenuInteraction;
-  type Registry = Command.Registry;
+  type Options = CommandOptions;
+  type JSON = CommandJSON;
+  type Context = AliasPiece.Context;
+  type RunInTypes = CommandOptionsRunType;
+  type ChatInputInteraction<Cached extends CacheType = CacheType> =
+    CommandInteraction<Cached>;
+  type Registry = ApplicationCommandRegistry;
 }

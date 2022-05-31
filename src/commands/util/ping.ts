@@ -1,9 +1,13 @@
 import { UniqueCommand } from "#lib/structures/uniqueCommand";
-import { Enumerable } from "@sapphire/decorators";
+import type { APIMessage } from ".pnpm/discord-api-types@0.30.0/node_modules/discord-api-types/v10";
+import { ApplyOptions, Enumerable } from "@sapphire/decorators";
 import { send } from "@sapphire/plugin-editable-commands";
 import { stripIndents } from "common-tags";
-import { Message, MessageActionRow, MessageButton } from "discord.js";
+import type { Message } from "discord.js";
 
+@ApplyOptions<UniqueCommand.Options>({
+  description: "The command to check the api latency of this bot.",
+})
 export class UserCommand extends UniqueCommand {
   @Enumerable(false)
   public readonly responses = [
@@ -24,27 +28,46 @@ export class UserCommand extends UniqueCommand {
     const msg = await send(message, "Ping?");
     if (!msg) return null;
     return await msg.edit({
-      content: this.responses[Math.floor(Math.random() * this.responses.length)]
-        .replace(
-          "$(ping)",
-          (
-            (msg.editedTimestamp || msg.createdTimestamp) -
-            (message.editedTimestamp || message.createdTimestamp)
-          ).toString()
-        )
-        .replace(
-          "$(heartbeat)",
-          Math.round(this.container.client.ws.ping).toString()
-        ),
-      components: [
-        new MessageActionRow().addComponents(
-          new MessageButton()
-            .setEmoji("📨")
-            .setLabel("Discord Status")
-            .setURL("https://discordstatus.com")
-            .setStyle("LINK")
-        ),
-      ],
+      content: this.getResult(msg, message),
     });
+  }
+
+  public override async chatInputRun(
+    interaction: UniqueCommand.ChatInputInteraction
+  ): Promise<APIMessage | Message<boolean> | null> {
+    const msg = await interaction.reply({
+      fetchReply: true,
+      content: "Ping?",
+    });
+    if (!msg) return null;
+    return await interaction.editReply(
+      this.getResult(msg as Message<boolean>, interaction)
+    );
+  }
+
+  public override registerApplicationCommands(
+    register: UniqueCommand.Registry
+  ) {
+    register.registerChatInputCommand((builder) =>
+      builder.setName(this.name).setDescription(this.description)
+    );
+  }
+
+  private getResult(
+    msg: Message,
+    message: Message<boolean> | UniqueCommand.ChatInputInteraction
+  ) {
+    return this.responses[Math.floor(Math.random() * this.responses.length)]
+      .replace(
+        "$(ping)",
+        (
+          (msg.editedTimestamp || msg.createdTimestamp) -
+          ((message as Message).editedTimestamp || message.createdTimestamp)
+        ).toString()
+      )
+      .replace(
+        "$(heartbeat)",
+        Math.round(this.container.client.ws.ping).toString()
+      );
   }
 }

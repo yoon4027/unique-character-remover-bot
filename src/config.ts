@@ -18,8 +18,10 @@ export const OWNERS = envParseArray("OWNERS", []);
 export const SENTRY_URL = envParseString("SENTRY_URL");
 export const REDIS_URL = envParseString("REDIS_URL");
 
+console.log(PREFIXES);
+
 export const CLIENT_OPTIONS: SapphireClientOptions & ClientOptions = {
-  baseUserDirectory: join(__dirname, "core"),
+  baseUserDirectory: join(__dirname),
   api: parseApi(),
   caseInsensitiveCommands: true,
   caseInsensitivePrefixes: true,
@@ -28,6 +30,7 @@ export const CLIENT_OPTIONS: SapphireClientOptions & ClientOptions = {
     level: LogLevel.Debug,
   },
   loadDefaultErrorListeners: false,
+  loadMessageCommandListeners: true,
   intents: [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_BANS,

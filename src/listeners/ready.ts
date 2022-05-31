@@ -7,6 +7,6 @@ import type { Client } from "discord.js";
 })
 export class UserListener extends Listener<typeof Events.ClientReady> {
   public run(client: Client<true>) {
-    this.container.logger.info(`${client.user.tag}`);
+    this.container.logger.info(`${client.user.tag} is online!`);
   }
 }

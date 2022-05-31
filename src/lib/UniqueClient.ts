@@ -1,8 +1,12 @@
-import { TOKEN } from "#root/config";
+import { CLIENT_OPTIONS, TOKEN } from "#root/config";
 import { PrismaClient } from "@prisma/client";
 import { container, SapphireClient } from "@sapphire/framework";
 
 export class UniqueClient extends SapphireClient {
+  public constructor() {
+    super(CLIENT_OPTIONS);
+  }
+
   public override async login() {
     const prisma = new PrismaClient();
 
