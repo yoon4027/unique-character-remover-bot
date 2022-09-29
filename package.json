@@ -21,7 +21,7 @@
     "@sapphire/time-utilities": "^1.7.4",
     "@sapphire/type": "^2.2.4",
     "@sapphire/utilities": "^3.6.2",
-    "@sentry/integrations": "^6.19.7",
+    "@sentry/integrations": "^7.14.0",
     "@sentry/node": "^6.19.7",
     "@skyra/env-utilities": "^1.0.0",
     "axios": "^0.27.2",
